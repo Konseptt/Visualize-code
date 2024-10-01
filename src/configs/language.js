@@ -1,5 +1,5 @@
 export const languages = {
-    bash: "Bash",
+    rust: "Rust",
     c: "C",
     "c++": "C++",
     "c#": "C#",
@@ -30,7 +30,7 @@ export const languages = {
     php: "PHP",
     python: "Python",
     ruby: "Ruby",
-    rust: "Rust",
+    bash: "Bash",
     scala: "Scala",
     scss: "SCSS",
     sql: "SQL",
