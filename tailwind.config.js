@@ -1,4 +1,5 @@
 const { nextui } = require("@nextui-org/react");
+
 /** @type {import('tailwindcss').Config} */
 module.exports = {
     darkMode: ["class"],
@@ -72,4 +73,8 @@ module.exports = {
         },
     },
     plugins: [require("tailwindcss-animate"), nextui()],
-}
+};
+
+// This configuration file sets up Tailwind CSS for the project.
+// It includes custom color themes, container settings, and animations.
+// The `nextui` plugin is used for integrating NextUI components with Tailwind CSS.

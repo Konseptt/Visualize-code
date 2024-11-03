@@ -1,3 +1,8 @@
+/**
+ * This module exports an array of code snippets in various programming languages.
+ * Each snippet includes the language and the code itself.
+ */
+
 export const codeSnippets = [
     {
         language: "python",

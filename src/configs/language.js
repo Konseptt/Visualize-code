@@ -1,3 +1,8 @@
+/**
+ * This module exports an object containing various programming languages.
+ * Each language includes its name and the corresponding key.
+ */
+
 export const languages = {
     rust: "Rust",
     c: "C",

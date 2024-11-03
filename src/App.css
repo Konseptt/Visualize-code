@@ -1,18 +1,26 @@
+/* App.css */
+
+/* This file contains the styles for the App component. */
+
+/* Styles for the App component */
 .App {
   text-align: center;
 }
 
+/* Styles for the App logo */
 .App-logo {
   height: 40vmin;
   pointer-events: none;
 }
 
+/* Animation for the App logo */
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {
     animation: App-logo-spin infinite 20s linear;
   }
 }
 
+/* Styles for the App header */
 .App-header {
   background-color: #282c34;
   min-height: 100vh;
@@ -24,10 +32,12 @@
   color: white;
 }
 
+/* Styles for the App link */
 .App-link {
   color: #61dafb;
 }
 
+/* Keyframes for the App logo spin animation */
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);

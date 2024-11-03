@@ -16,13 +16,17 @@ import { toast } from "react-toastify";
 import { toPng, toSvg, toBlob } from 'html-to-image';
 import { useCheckMobile } from "../../hooks/useCheckMobile";
 
+// CSS classes for input elements
 const inputClasses = "flex items-center justify-between rounded-md bg-transparent px-3 py-2 text-sm shadow-sm ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-ring disabled:cursor-not-allowed disabled:opacity-50 w-full md:w-1/4";
 
+// CSS classes for icons
 const iconClasses = "text-xl text-default-500 pointer-events-none flex-shrink-0";
 
+// ToolBar component
 const ToolBar = ({
     codeEditorRef
 }) => {
+    // State variables from the store
     const theme = useStore((state) => state.theme);
     const language = useStore((state) => state.language);
     const font = useStore((state) => state.fontStyle);
@@ -32,40 +36,47 @@ const ToolBar = ({
 
     const isMobile = useCheckMobile();
 
+    // Handle theme change
     const handleThemeChange = (e) => {
         if (!!e.target.value) {
             useStore.setState({ theme: e.target.value });
         }
     }
 
+    // Handle language change
     const handleLanguageChange = (e) => {
         if (!!e.target.value) {
             useStore.setState({ language: e.target.value });
         }
     }
 
+    // Handle font change
     const handleFontChange = (e) => {
         if (!!e.target.value) {
             useStore.setState({ fontStyle: e.target.value });
         }
     }
 
+    // Handle font size change
     const handleFontSizeChange = (e) => {
         if (!!e.target.value) {
             useStore.setState({ fontSize: Number(e.target.value) });
         }
     }
 
+    // Handle padding change
     const handlePaddingChange = (newPadding) => {
         if (!!newPadding) {
             useStore.setState({ padding: newPadding });
         }
     }
 
+    // Handle dark mode change
     const handleDarkModeChange = (darkMode) => {
         useStore.setState({ darkMode });
     }
 
+    // Show a message using toast
     const showMessage = (message) => {
         toast(message, {
             autoClose: 2000,
@@ -74,6 +85,7 @@ const ToolBar = ({
         });
     }
 
+    // Show an error message using toast
     const showErrorMessage = (message) => {
         toast.error(message, {
             autoClose: 2000,
@@ -82,6 +94,7 @@ const ToolBar = ({
         });
     }
 
+    // Save image as PNG or SVG
     const saveImageAs = (type) => async () => {
         const saveImageFunction = {
             'png': toPng,
@@ -99,6 +112,7 @@ const ToolBar = ({
         }
     }
 
+    // Copy image to clipboard
     const copyToClipboard = async () => {
         try {
             const imgBlob = await toBlob(codeEditorRef.current);
