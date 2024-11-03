@@ -1,3 +1,8 @@
+/**
+ * This module exports an object containing various themes.
+ * Each theme includes its name, background, and the URL to the corresponding CSS file.
+ */
+
 export const themes = {
     hyper: {
         name: "Hyper",

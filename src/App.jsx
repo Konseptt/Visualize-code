@@ -1,15 +1,17 @@
-import { useEffect, useRef, useState } from 'react';
+import { Suspense, lazy, useEffect, useRef, useState } from 'react';
 import './index.css';
-import CodeEditor from './components/CodeEditor';
 import useStore from './store';
 import { themes } from './configs/theme';
 import { fonts } from './configs/font';
 import { mergeClassNames } from './utils/mergeClassName';
 import { Resizable } from "re-resizable";
-import ToolBar from './components/ToolBar';
-import WidthMeasurement from './components/WidthMeasurement';
 import { Button } from '@nextui-org/react';
 import { useCheckMobile } from './hooks/useCheckMobile';
+
+// Lazy load components that are not immediately needed
+const CodeEditor = lazy(() => import('./components/CodeEditor'));
+const ToolBar = lazy(() => import('./components/ToolBar'));
+const WidthMeasurement = lazy(() => import('./components/WidthMeasurement'));
 
 function App() {
   const [width, setWidth] = useState("auto");
@@ -26,6 +28,40 @@ function App() {
     // TODO: handle convert code from base64 text from url
   }, []);
 
+  // Error boundary component to handle errors
+  const ErrorBoundary = ({ children }) => {
+    const [hasError, setHasError] = useState(false);
+
+    useEffect(() => {
+      if (hasError) {
+        setTimeout(() => setHasError(false), 3000);
+      }
+    }, [hasError]);
+
+    return hasError ? (
+      <div className="error-message">Something went wrong. Please try again later.</div>
+    ) : (
+      <ErrorBoundaryFallback setHasError={setHasError}>{children}</ErrorBoundaryFallback>
+    );
+  };
+
+  const ErrorBoundaryFallback = ({ setHasError, children }) => {
+    return (
+      <ErrorBoundary
+        fallbackRender={({ error, resetErrorBoundary }) => (
+          <div role="alert">
+            <p>Something went wrong:</p>
+            <pre>{error.message}</pre>
+            <button onClick={resetErrorBoundary}>Try again</button>
+          </div>
+        )}
+        onError={() => setHasError(true)}
+      >
+        {children}
+      </ErrorBoundary>
+    );
+  };
+
   return (
     <main className="w-full p-4 min-h-screen items-center dark text-foreground bg-background">
       <link
@@ -39,7 +75,11 @@ function App() {
         crossOrigin="anonymous"
       />
       <div className='md:container flex-column'>
-        <ToolBar codeEditorRef={editorRef} />
+        <ErrorBoundary>
+          <Suspense fallback={<div>Loading...</div>}>
+            <ToolBar codeEditorRef={editorRef} />
+          </Suspense>
+        </ErrorBoundary>
         <div className="justify-center flex relative" id='code-editor'>
           <Resizable
             enable={{ left: true, right: true }}
@@ -71,9 +111,17 @@ function App() {
               }}
               ref={editorRef}
             >
-              <CodeEditor />
+              <ErrorBoundary>
+                <Suspense fallback={<div>Loading...</div>}>
+                  <CodeEditor />
+                </Suspense>
+              </ErrorBoundary>
             </div>
-            <WidthMeasurement showWidth={showWidth} width={width} />
+            <ErrorBoundary>
+              <Suspense fallback={<div>Loading...</div>}>
+                <WidthMeasurement showWidth={showWidth} width={width} />
+              </Suspense>
+            </ErrorBoundary>
             <div
               className={mergeClassNames(
                 "transition-opacity w-fit mx-auto -mt-4",

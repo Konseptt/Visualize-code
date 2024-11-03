@@ -1,3 +1,8 @@
+/**
+ * This module exports an object containing various fonts.
+ * Each font includes its name and the source URL.
+ */
+
 export const fonts = {
     jetBrainsMono: {
         name: "JetBrains Mono",

@@ -1,3 +1,12 @@
+/**
+ * WidthMeasurement component displays the width of the code editor in pixels.
+ * It shows a visual representation of the width with lines and a text label.
+ *
+ * @param {Object} props - The component props.
+ * @param {boolean} props.showWidth - Flag to show or hide the width measurement.
+ * @param {number} props.width - The width of the code editor in pixels.
+ * @returns {JSX.Element} The WidthMeasurement component.
+ */
 export default function WidthMeasurement({ showWidth, width }) {
   return (
     <div
